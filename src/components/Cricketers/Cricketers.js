@@ -16,15 +16,30 @@ import RightIconDisabled from '../../assets/images/right-icon-disabled.png';
 
 
 const Cricketers = () =>{
-
     const [players, setPlayers] = useState([]);
-    const [filteredPlayers, setFilteredPlayers] = useState([])
+    const [filteredPlayers, setFilteredPlayers] = useState(JSON.parse(sessionStorage.getItem('filteredArray')) || [])
     const [ currentPage, setCurrentPage] = useState(1);
     const [ totalPages, setTotalPages] = useState([]);
-    const [ searchText, setSearchText ] = useState('');
+    const [ filterByValue, setFilterByValue ] = useState(sessionStorage.getItem('filterByValue') || '');
+    const [ searchText, setSearchText ] = useState(sessionStorage.getItem('searchText') || '');
     const NO_OF_RECORDS = 10;
 
+    
+    // useEffect(()=>{
+    //     console.log('i m in search text useEffect');
+    //     let filteredArray = JSON.parse(sessionStorage.getItem('filteredArray'));
+    //     console.log("Filtered array ",filteredArray);
+    // },[searchText])
+
+    // useEffect(()=>{
+    //     console.log('i m in filtered array useEffect');
+    //     let filteredArray = JSON.parse(sessionStorage.getItem('filteredPlayers'));
+    //     console.log("Filtered array ",filteredArray);
+    //     // searchByName(searchText);
+    // },[filteredPlayers])
+
     useEffect(()=>{
+        console.log(searchText, filterByValue);
         getPlayers().then(data=>{
             console.log("data from get players ",data);
             let totalCricketers = data;
@@ -36,11 +51,16 @@ const Cricketers = () =>{
             let pagesArray = getPagesArray(totalPages);
             setTotalPages(pagesArray);
             let cricketersPerPage = setCricketersPerPage([...data]);
-            setFilteredPlayers(cricketersPerPage)
+            if(searchText!=='Select' || filterByValue!=='Select'){
+                let filteredArray = JSON.parse(sessionStorage.getItem('filteredPlayers'));
+                setFilteredPlayers(filteredArray);
+            }else{
+                setFilteredPlayers(cricketersPerPage);
+            }
             setPlayers(totalCricketers);
-            
         })
     },[currentPage]);
+
 
     const getTotalPages = (data) => {
         let pages = 0;
@@ -117,7 +137,6 @@ const Cricketers = () =>{
         console.log(filterByValue); 
         let playersArray = [...players];
         if(filterByValue!=='Select'){
-            
             console.log(playersArray);
             playersArray = playersArray.filter(player => {
                 console.log(player.type, filterByValue);
@@ -133,19 +152,30 @@ const Cricketers = () =>{
         playersArray = setCricketersPerPage(playersArray);
         console.log(playersArray);
         setTotalPages(pagesArray);
+        sessionStorage.setItem('filteredPlayers', JSON.stringify(playersArray));
+        sessionStorage.setItem('filterByValue', filterByValue);
+        setFilterByValue(filterByValue)
         setFilteredPlayers(playersArray);
         
     }
 
-    const searchByName = (event) => {
-        let searchValue = event.target.value;
+    const searchByName = (searchValue) => {
+        console.log(searchValue);
+        // let searchValue = event.target.value;
         let playersArray = [...players];
-        playersArray = playersArray.filter(player=>player.name.toLowerCase().includes(searchValue.toLowerCase()));
+        console.log(playersArray);
+        let playersArraybyName = playersArray.filter(player=>player.name.toLowerCase().includes(searchValue.toLowerCase()));
+        if(playersArraybyName.length>0){
+            sessionStorage.setItem('filteredPlayers', JSON.stringify(playersArraybyName));
+            playersArray = playersArraybyName; 
+        }
+        console.log(playersArraybyName);
+        sessionStorage.setItem('searchText', searchValue);
         setFilteredPlayers(playersArray);
-        setSearchText(searchText);
+        setSearchText(searchValue);
     }
 
-    if(players.length===0)
+    if(filteredPlayers.length===0)
     return <Shimmer />
     console.log(currentPage, totalPages);
 
@@ -153,7 +183,7 @@ const Cricketers = () =>{
         <div className="filters">
             <div>Sort by: </div>
             <div className="filter-options">
-                <select onChange={sortBy}>
+                <select  onChange={sortBy}>
                     <option>Select</option>
                     <option>Name</option>
                     <option>Rank</option>
@@ -162,7 +192,7 @@ const Cricketers = () =>{
             </div>
             <div>Filter By Type: </div>
             <div className="filter-options">
-                <select onChange={filterBy}>
+                <select value={filterByValue} onChange={filterBy}>
                     <option>Select</option>
                     <option>AllRounder</option>
                     <option>Batsman</option>
@@ -170,10 +200,10 @@ const Cricketers = () =>{
                     <option>WicketKeeper</option>
                 </select>
             </div>
-            <input type="text" placeholder="Search by name" onChange={searchByName}/>
+            <input type="text" placeholder="Search by name" value={searchText} onChange={(event)=>searchByName(event.target.value)}/>
         </div>
         <div className="cricketers">
-            {filteredPlayers && filteredPlayers.length>0 && filteredPlayers.map(player=><Card key={player._id} data={player} />)}
+            {filteredPlayers && filteredPlayers.length>0 && filteredPlayers.map(player=><React.Fragment key={player._id}><Card data={player} /></React.Fragment>)}
         </div>
         <div className="pagination">
             <div className='paginationIconContainer' onClick={()=>handlePageClick(1)}>
