@@ -1,0 +1,30 @@
+.cricketer-details{
+    padding: 20px;
+}
+
+h3{
+    border: 1px solid #000;
+    width: 150px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #4B0076;
+}
+
+h3 a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.details{
+    display: flex;
+    align-items: center;
+}
+
+.details span{
+    width: 100px;
+}
+
+.details span:last-child{
+    margin: 0 10px;
+    text-transform: capitalize;
+}

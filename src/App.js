@@ -5,6 +5,7 @@ import Body from "./components/Body/Body";
 import Error from "./components/Error";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Cricketers from "./components/Cricketers/Cricketers";
+import Cricketer from "./components/Cricketer/Cricketer";
 
 const App = () => {
     return (
@@ -22,6 +23,10 @@ const appRouter = createBrowserRouter([{
         {
             path: '/',
             element: <Cricketers />
+        },
+        {
+            path: '/cricketer/:cricketerId',
+            element: <Cricketer />
         }
     ],
     errorElement: <Error />
