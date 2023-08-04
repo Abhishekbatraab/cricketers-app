@@ -1,0 +1,30 @@
+{
+  "name": "cricketers-app",
+  "version": "1.0.0",
+  "description": "An app to display cricketers list and their bio details.",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abhishekbatraab/cricketers-app.git"
+  },
+  "author": "Abhishek Batra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abhishekbatraab/cricketers-app/issues"
+  },
+  "homepage": "https://github.com/Abhishekbatraab/cricketers-app#readme",
+  "devDependencies": {
+    "parcel": "^2.9.3",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.2"
+  }
+}

@@ -1,0 +1,13 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    border: 1px solid #000;
+    background-color: #4B0076;
+    color: #fff;
+}
+
+ul li{
+    list-style: none;
+}

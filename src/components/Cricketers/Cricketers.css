@@ -1,0 +1,87 @@
+.cricketers-container{
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
+.filters{
+    display: flex;
+    padding: 0 20px;
+}
+
+
+.filter-options{
+    margin: 0 10px;
+}
+
+.cricketers{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.navigatePageIcon{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.navigatePageIcon img{
+    width: 20px;
+    height: 20px;
+}
+
+.paginationIconContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin: 0 20px;
+    background-color: #1890ff;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.activePageIconContainer{
+    background-color: #fff;
+    border-color: #1890ff;
+}
+
+.paginationIconContainer img{
+    width: 10px;
+    height: 10px;
+}
+
+.pageNumberContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background-color: #1890ff;
+    border-radius: 50%;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.pageNumberText{
+    color: #fff;
+    font-size: 12px;
+}
+
+.activePageNumberText{
+    color: #1890ff;
+}
+
+.selectedPage{
+    background-color: #fff;
+    border-color: #1890ff;
+}
+
+.pagination{
+    display: flex;
+    justify-content: center;
+    /* position: fixed;
+    bottom: 20px;
+    left: 40%; */
+}
