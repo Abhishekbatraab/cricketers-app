@@ -31,8 +31,7 @@ const Cricketers = () =>{
             let pagesArray = getPagesArray(totalPages);
             setTotalPages(pagesArray);
             let cricketersPerPage = setCricketersPerPage([...data]);
-            setFilteredPlayers(cricketersPerPage);
-            if(searchText!=='' || filterByValue!=='Select'){
+            if(searchText!=='' || filterByValue!==''){
                 let filteredArray = JSON.parse(sessionStorage.getItem('filteredPlayers'));
                 setFilteredPlayers(filteredArray);
             }else{
@@ -143,7 +142,7 @@ const Cricketers = () =>{
         setSearchText(searchValue);
     }
 
-    if(filteredPlayers.length===0)
+    if(filteredPlayers && filteredPlayers.length===0)
     return <Shimmer />
 
     return (<div className="cricketers-container">
